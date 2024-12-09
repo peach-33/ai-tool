@@ -1,21 +1,49 @@
-# 忽略 node_modules 目录
+# 依赖目录
 node_modules
-npm-debug.log
+.npm
+npm-debug.log*
 
-# 忽略日志文件
-*.log
+# Next.js构建输出
+.next
+out
 
-# 忽略本地开发配置文件
-.env.local
-.env.development
-
-# 忽略 Git 仓库文件
+# 开发工具和IDE配置
 .git
 .gitignore
-
-# 忽略编辑器和 IDE 配置文件
 .vscode
 .idea
+*.swp
+*.swo
 
-# 忽略 MacOS 特有的文件
+# 操作系统文件
 .DS_Store
+Thumbs.db
+
+# 测试文件
+__tests__
+coverage
+*.test.js
+*.spec.js
+
+# 环境变量文件
+.env*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 其他不需要的文件
+README.md
+**/README.md
+CHANGELOG.md
+docker-compose*
+Dockerfile
+.dockerignore
+
+# 日志文件
+*.log
+logs
+
+# 临时文件
+.tmp
+.temp 

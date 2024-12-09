@@ -1,35 +1,50 @@
-# 从构建阶段复制必要的文件
-FROM node:20 AS builder
+# 使用Node.js官方镜像作为基础镜像
+FROM node:20-alpine AS builder
 
+# 设置工作目录
 WORKDIR /app
 
-# 复制 package.json 和 package-lock.json
+# 复制package.json和package-lock.json
 COPY package*.json ./
-RUN npm install
 
-# 复制所有源代码
-COPY . ./
+# 安装依赖
+RUN npm ci
+
+# 复制源代码
+COPY . .
 
 # 构建应用
 RUN npm run build
 
-# 生产阶段
-FROM node:20
+# 生产环境镜像
+FROM node:20-alpine AS runner
 
 WORKDIR /app
 
+# 设置环境变量
+ENV NODE_ENV production
+
+# 添加非root用户
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
+
 # 复制构建产物
-COPY --from=builder /app/.next/standalone /app/.next/standalone
-COPY --from=builder /app/public /app/public
-COPY --from=builder /app/package.json /app/package.json
-COPY --from=builder /app/node_modules /app/node_modules
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
-ENV NODE_ENV=production
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
-ENV NEXT_TELEMETRY_DISABLED=1
+# 设置正确的权限
+RUN chown -R nextjs:nodejs /app
 
+# 切换到非root用户
+USER nextjs
+
+# 暴露端口
 EXPOSE 3000
 
-# 使用 node 启动 standalone 模式
-CMD ["node", ".next/standalone/server.js"]
+# 设置环境变量
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
+
+# 启动命令
+CMD ["node", "server.js"] 
