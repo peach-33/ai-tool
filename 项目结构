@@ -1,0 +1,33 @@
+my-website/
+├── public/
+│   └── images/
+│       ├── ip.webp
+│       ├── writing.png
+│       ├── image.png
+│       └── code.png
+│
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── tools/
+│   │       ├── page.tsx                    # 工具列表页面
+│   │       └── [category]/                 # 动态路由：类别
+│   │           └── [toolId]/               # 动态路由：工具
+│   │               └── page.tsx            # 工具详情页面
+│   │
+│   ├── components/
+│   │   ├── common/
+│   │   │   └── Button/
+│   │   ├── layout/
+│   │   │   ├── Header.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   └── Sidebar.tsx
+│   │   └── tools/
+│   │       └── ToolCard.tsx
+│   │
+│   └── styles/
+│       └── globals.css
+│
+├── package.json
+└── tsconfig.json

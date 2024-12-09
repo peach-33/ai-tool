@@ -1,0 +1,33 @@
+.button {
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.primary {
+  background-color: #BC9CFF;
+  color: white;
+}
+
+.secondary {
+  background-color: transparent;
+  border: 2px solid #BC9CFF;
+  color: #BC9CFF;
+}
+
+.small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.medium {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.large {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+} 
